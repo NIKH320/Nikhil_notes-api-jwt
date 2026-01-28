@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes app</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+    <div class="container">
+
+        <h2>Notes App</h2>
+
+    
+      <input id="noteInput" placeholder="write here">
+      <button onclick="sendNote()">Add Note</button>
+
+      <button onclick="loadNotes()">Show notes</button>
+      
+      <ul id="notesList"></ul>
+
+    <button onclick="logout()">Logout</button>
+
+    </div>
+    
+
+
+
+
+      <script >
+
+        const token = localStorage.getItem("token");
+
+        //If someone opens index.html without login, they are redirected back.
+          if (!token) {
+               alert("Please login first");
+               window.location.href = "auth.html";
+           }
+        console.log("TOKEN USED:", token);
+        
+        
+        async function sendNote(){
+
+            const note = document.getElementById("noteInput").value;
+
+            const res = await fetch("http://localhost:3000/notes", {
+
+                method: "POST",
+
+                headers:{
+                    "Content-Type": "application/json",
+                    "Authorization": localStorage.getItem("token")
+                },
+
+                body: JSON.stringify({ note: note })
+
+            });
+
+            const data = await res.json();
+            alert(data.message);
+
+             loadNotes();
+        }
+
+
+
+        async function loadNotes(){
+
+           const res = await fetch("http://localhost:3000/notes", {
+               headers: {
+              Authorization: localStorage.getItem("token")
+            }
+          });
+
+                const data = await res.json();
+
+                if (!data.success) {
+                  alert(data.message);
+                  return;
+                }
+                     
+            const list = document.getElementById("notesList");
+            list.innerHTML = "";
+                   
+                    data.data.forEach( (note) => {
+                        
+                        const li = document.createElement("li");
+                        //li.innerText = note;
+
+                        li.innerText = note.text;
+
+                        const btn = document.createElement("button");
+                        btn.innerText = "Delete";
+                        //btn.onclick = () =>deleteNote(index);
+
+                        btn.onclick = () => deleteNote(note._id);
+
+                        li.append(btn);
+                        list.appendChild(li);
+                    });
+                
+        }
+
+
+
+        async function deleteNote(id){
+
+           const res =  await fetch(`http://localhost:3000/notes/${id}`,{
+                method: "DELETE",
+                headers: {
+                   Authorization: localStorage.getItem("token")
+                }
+            })
+            
+            if (!res.ok) {
+             alert("You are not logged in");
+           return;
+        }
+            loadNotes();
+        }
+
+
+        function logout() {
+           localStorage.removeItem("token");
+           window.location.href = "auth.html";
+         }
+
+      </script>
+    
+</body>
+</html>

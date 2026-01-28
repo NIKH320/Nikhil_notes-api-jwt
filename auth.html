@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    
+
+   <div class="container">
+        <h2>Login / Signup</h2>
+
+        <input id="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Password">
+
+        <button onclick="signup()">Signup</button>
+        <button onclick="login()">Login</button>
+    </div>
+
+</body>
+
+<script>
+
+    let token = "";
+
+         async function signup() {
+             await fetch("http://localhost:3000/signup", {
+               method: "POST",
+             headers: { "Content-Type": "application/json" },
+             body: JSON.stringify({
+            email: email.value,
+            password: password.value
+           })
+        });
+        alert("Signup done");
+      }
+
+
+
+      async function login() {
+            const res = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+             body: JSON.stringify({
+            email: email.value,
+            password: password.value
+            })
+          });
+
+         const data = await res.json();
+
+         console.log("TOKEN RECEIVED:", data.data.token);
+
+              if (!data.success) {
+                 alert(data.message);
+                 return;
+                }
+         
+        localStorage.setItem("token", data.data.token);
+        alert(data.message);
+
+        window.location.href = "index.html";
+     }
+
+
+</script>
+</html>
