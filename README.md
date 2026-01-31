@@ -1,4 +1,4 @@
-#  Notes API – Secure Full Stack Backend Project
+#  Notes API 
 
 A Very simple full-stack Notes application built using **React**, **Node.js**, **Express**, and **MongoDB**, with **JWT-based authentication**.
  
