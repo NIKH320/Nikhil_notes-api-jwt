@@ -1,7 +1,8 @@
 #  Notes API – Secure Full Stack Backend Project
 
-A secure, user-based Notes application built using Node.js, Express, MongoDB, and JWT authentication.  
-This project demonstrates real-world backend concepts such as authentication, authorization, MVC architecture, and clean API design.
+A Very simple full-stack Notes application built using **React**, **Node.js**, **Express**, and **MongoDB**, with **JWT-based authentication**.
+ 
+I learned real-world backend concepts such as authentication, authorization, MVC architecture, and clean API design with this project.
 
 # Features
 
@@ -18,46 +19,16 @@ This project demonstrates real-world backend concepts such as authentication, au
 
 # Tech Stack
 
+### Frontend
+- React (Vite)
+- Vanilla CSS
+- Fetch API
+- 
 - **Backend:** Node.js, Express.js  
 - **Database:** MongoDB (Mongoose)  
 - **Authentication:** JWT (JSON Web Tokens)  
 - **Security:** bcrypt
-- **Frontend:** HTML, CSS, Vanilla JavaScript  
-
-
-##  Project Structure
-
-notes-API/
-│
-├── config/
-│ └── db.js
-│
-├── models/
-│ ├── User.js
-│ └── Note.js
-│
-├── controllers/
-│ ├── authController.js
-│ └── noteController.js
-│
-├── routes/
-│ ├── authRoutes.js
-│ └── noteRoutes.js
-│
-├── middlewares/
-│ ├── auth.js
-│ ├── logger.js
-│ └── errorHandler.js
-│
-├── utils/
-│ └── apiResponse.js
-│
-├── auth.html
-├── index.html
-├── styles.css
-├── .env
-├── index.js
-└── README.md
+  
 
 
 ##  Authentication Flow:
@@ -70,11 +41,38 @@ notes-API/
 6. Auth middleware verifies token and attaches `userId` to request
 
 
+## API Endpoints
+
+### Auth
+- `POST /signup` – Register new user
+- `POST /login` – Login user
+
+### Notes (Protected)
+- `GET /notes` – Fetch user notes
+- `POST /notes` – Create note
+- `DELETE /notes/:id` – Delete note
+
+
 How to Run Locally:
+
+### Backend
 1.npm install
 2.Open MongodB(bin) on terminal - PS C:\Program Files\MongoDB\Server\8.2\bin> .\mongod.exe
 3.Create .env file -poert, db URL, secret key
 4.node index.js
+
+### Frontend
+1.npm install
+2.npm run dev
+
+
+## Deployment Note
+The frontend is deployed using GitHub Pages.
+The backend is currently configured to run locally on `http://localhost:3000`.
+
+
+
+
 
 ## Author - Nikhil 
 
