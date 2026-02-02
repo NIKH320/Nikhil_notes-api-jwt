@@ -1,68 +1,68 @@
 
 
-//This componenet is Just for reference
+// //This componenet is Just for reference
 
-import { useState } from "react";
+// import { useState } from "react";
 
-function Login({ onLogin}) {
+// function Login({ onLogin}) {
 
-    const[email,setEmail] = useState("");
-    const[password,setPassword] = useState("");
-    const[message,setMessage] = useState("");
+//     const[email,setEmail] = useState("");
+//     const[password,setPassword] = useState("");
+//     const[message,setMessage] = useState("");
 
 
-    async function handleLogin(e) {
+//     async function handleLogin(e) {
 
-        e.preventDefault();
+//         e.preventDefault();
 
-        const res = await fetch("http://localhost:3000/login" , {
-           method:"POST",
-           headers:{"Content-Type": "application/json"},
-           body:JSON.stringify({email,password})
+//         const res = await fetch("http://localhost:3000/login" , {
+//            method:"POST",
+//            headers:{"Content-Type": "application/json"},
+//            body:JSON.stringify({email,password})
 
-        });
+//         });
         
 
-        const data = await res.json();
+//         const data = await res.json();
 
-         if (!data.success) {
-          setMessage(data.message);
-          return;
-        }
+//          if (!data.success) {
+//           setMessage(data.message);
+//           return;
+//         }
 
-        localStorage.setItem("token",data.data.token);
-        setMessage("Login successful");
+//         localStorage.setItem("token",data.data.token);
+//         setMessage("Login successful");
 
-        onLogin(); // tell App we are logged in
+//         onLogin(); // tell App we are logged in
 
-    }
+//     }
 
-    return(
+//     return(
 
-        <div>
-            <h2>Login</h2>
+//         <div>
+//             <h2>Login</h2>
 
-            <form onSubmit={handleLogin}>
+//             <form onSubmit={handleLogin}>
                      
-               <input 
-                 placeholder="email"
-                 value={email}
-                 onChange={(e) => setEmail(e.target.value)} />
+//                <input 
+//                  placeholder="email"
+//                  value={email}
+//                  onChange={(e) => setEmail(e.target.value)} />
 
-                <input 
-                type="password"
-                placeholder="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}/>
+//                 <input 
+//                 type="password"
+//                 placeholder="password"
+//                 value={password}
+//                 onChange={(e) => setPassword(e.target.value)}/>
 
-              <button type="submit">Login</button>
-            </form>
+//               <button type="submit">Login</button>
+//             </form>
 
-          {message && <p>{message}</p>}
+//           {message && <p>{message}</p>}
 
-        </div>
-    );
+//         </div>
+//     );
 
-}
+// }
 
-export default Login;
+// export default Login;

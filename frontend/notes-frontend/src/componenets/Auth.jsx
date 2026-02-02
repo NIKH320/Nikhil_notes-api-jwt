@@ -1,8 +1,13 @@
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
+
 
 function Auth({ onAuthSuccess}){
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const [isSignup,setIsSignup] = useState(false);
+    const isSignup = location.pathname === "/signup";
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -34,12 +39,13 @@ function Auth({ onAuthSuccess}){
 
            if(isSignup){
               setMessage("Signup successful. Please login.");
-              setIsSignup(false)
+              navigate("/login");
               return;
            }
 
            localStorage.setItem("token",data.data.token);
            onAuthSuccess();
+           navigate("/notes");
     }
 
 
@@ -68,7 +74,7 @@ function Auth({ onAuthSuccess}){
 
          {message && <p className="message">{message}</p>}
     
-          <p className="toggle" onClick={()=> setIsSignup(!isSignup)}>
+          <p className="toggle" onClick={()=> navigate(isSignup?"/login":"/signup")}>
             {
                 isSignup
                   ? "Already have an account? Login"

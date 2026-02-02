@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+
 
 function Notes({onLogout}){
+
+    const navigate = useNavigate();
+    
     const [notes,setNotes] = useState([]);
     const [newNote,setNewNote] = useState("");
     const [message,setMessage] = useState("");
@@ -88,6 +94,7 @@ function Notes({onLogout}){
     function logout(){
         localStorage.removeItem("token");
         onLogout();
+        navigate("/login");
     }
 
 
